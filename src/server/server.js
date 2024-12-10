@@ -12,7 +12,8 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             users: '/api/users',
-            companies: '/api/companies'
+            companies: '/api/companies',
+            licences: '/api/licenses'
         };
 
         //Conectarme a DB 
@@ -45,6 +46,7 @@ class Server {
         this.app.use(this.paths.auth, require('../routes/auth.routes'));
         this.app.use(this.paths.users, require('../routes/users.routes.js'));
         this.app.use(this.paths.companies, require('../routes/companies.routes'));
+        this.app.use(this.paths.licences, require('../routes/lincenses.routes.js'))
     }
 
     listen() {

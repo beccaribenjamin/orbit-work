@@ -51,6 +51,7 @@ export const EmployeeList = ({ companyId, show, setShow }) => {
                     {employees.map((employee) => (
                         <li key={employee._id} className="p-2 bg-gray-100 rounded-md shadow-md">
                             <p><strong>Nombre:</strong> {employee.name}</p>
+                            <p><strong>Nombre:</strong> {employee._id}</p>
                             <p><strong>Email:</strong> {employee.email}</p>
                             <p><strong>Puesto:</strong> {employee.position}</p>
                             <p><strong>Area / Departamento:</strong> {employee.area}</p>

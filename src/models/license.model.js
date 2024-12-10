@@ -30,6 +30,11 @@ const licenseSchema = Schema({
         ref: 'User', 
         required:true,
     },
+    company: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Company', 
+        required:true,
+    },
 })
 
 

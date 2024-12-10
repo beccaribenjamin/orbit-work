@@ -106,11 +106,24 @@ const getUsersByCompany = async(req, res) => {
 const deleteUser = async(req, res) => {
 
     try{
-        const deleteUser = await User.findByIdAndDelete(req.params.id)
-        if( !deleteUser ){
-            return res.status(200).json({msg: 'Usuario no encontrado o el usuario no existe'})
-        }  
-        return res.status(204).json({msg: 'Usuario Eliminado correctamente'})
+        // Buscar y eliminar el usuario
+        const userToDelete = await User.findByIdAndDelete(req.params.id);
+        if (!userToDelete) {
+            return res.status(404).json({ msg: 'Usuario no encontrado o el usuario no existe' });
+        }
+
+        // Si el usuario pertenece a una compañía, eliminarlo del array de empleados
+        if (userToDelete.company) {
+            const company = await Company.findById(userToDelete.company);
+            if (company) {
+                company.employees = company.employees.filter(
+                    (employeeId) => employeeId.toString() !== req.params.id
+                );
+                await company.save();
+            }
+        }
+
+        return res.status(204).json({ msg: 'Usuario eliminado correctamente' });
     }catch( error ){
         return res.status(500).json({msg: error.message})
     }
