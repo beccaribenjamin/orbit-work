@@ -25,6 +25,10 @@ const licenseSchema = Schema({
         type: Date, 
         default: Date.now 
     },
+    nameEmployee:{
+        type: String,
+        required: true,
+    },
     user: {
         type: Schema.Types.ObjectId, 
         ref: 'User', 

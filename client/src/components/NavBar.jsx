@@ -28,7 +28,7 @@ export const NavBar = () => {
         ],
         employee: [
             { name: 'Dashboard', path: '/dashboard' },
-            { name: 'Licencias', path: '/dashboard' },
+            { name: 'Licencias', path: '/licencias' },
             { name: 'Docs', path: '/dashboard' },
         ],
     };

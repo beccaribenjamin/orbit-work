@@ -42,7 +42,7 @@ const getLicensesByCompany = async(req, res) => {
         const {companyId} = req.params;
         const licenses = await License.find({ company: companyId });
         if( licenses.length === 0 ){
-            return res.status(404).json({msg: 'No se encontraron licencias para esta empresa'});
+            return res.status(200).json({msg: 'No se encontraron licencias para esta empresa'});
         }
         res.json(licenses);
     } catch (error) {
@@ -59,7 +59,7 @@ const getLicensesByUser = async(req, res) => {
         const {userId} = req.params;
         const licenses = await License.find({ user: userId })
         if( licenses.length === 0 ){
-            return res.status(404).json({msg: 'No se encontraron licencias para este usuario'});
+            return res.status(200).json({msg: 'No se encontraron licencias para este usuario'});
         }
         res.json(licenses);
 
