@@ -58,7 +58,6 @@ export const Dashboard = () => {
                                 <div key={employee._id} className='m-2 px-3 py-4 flex border border-slate-500 text-white rounded-md '>
                                     <h4 className='basis-1/2'>{employee.name}</h4>
                                     <p className='basis-1/2'>{employee.position}</p>
-                                    
                                 </div>
                             ))}
                         </section>
