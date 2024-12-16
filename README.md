@@ -9,10 +9,10 @@ Cargar Empleados:
 - Asignar Puesto y Departamento/Área en el que se desempeña.
 - Datos de contacto.
 
-Manejo de Licencias
--Solicitar Licencias ya sea por vacaciones, enfermedad, maternidad, entre otras.
--Usuarios con Rol de Administrador podrán aprobarlas o rechazarlas según corresponda.
+Manejo de Licencias:
+- Solicitar Licencias ya sea por vacaciones, enfermedad, maternidad, entre otras.
+- Usuarios con Rol de Administrador podrán aprobarlas o rechazarlas según corresponda.
 
 Manejo de Documentos y Firma Digital:
--Los usuarios administradores podrán subir documentos como recibos de sueldo, alta de empleado, etc.
--Los empleados podrán firmar en conformidad con el mismo.
+- Los usuarios administradores podrán subir documentos como recibos de sueldo, alta de empleado, etc.
+- Los empleados podrán firmar en conformidad con el mismo.
