@@ -91,7 +91,7 @@ const getUsersByCompany = async(req, res) => {
 
     try {
         const employees = await User.find({ company: companyId })
-            .select("name email area position role")
+            .select("name email area position role createdAt updatedAt");
 
         if( !employees ){
             return res.status(404).json({msg: 'No se encontraron empleados'})
