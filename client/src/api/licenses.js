@@ -5,3 +5,5 @@ export const getLicensesByCompanyRequest = async(companyId) => axios.get(`/licen
 export const getLicensesByUserRequest = async(userId) => axios.get(`/licenses/user/${userId}`);
 
 export const updateLicensesRequest = async(licensesId, updateData) => axios.put(`/licenses/${licensesId}`, updateData)
+
+export const createLicensesRequest = async(licenseData) => axios.post('/licenses', licenseData)

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { NavBar } from '../components/NavBar'
 import { useUser } from '../context/UserContext'
-
-
-
+import { LicensesForm } from '../components/LicensesForm';
 
 
 export const Licencias = () => {
 
     const { getLicensesByCompany, getLicensesByUser, updateLicenses, licenses, userData } = useUser();
     const [loading, setLoading] = useState(false);
-    const [filter, setFilter] = useState('pendiente');
+    const [filter, setFilter] = useState('Pendiente');
+    const [show, setShow] = useState(false);
 
     const fetchLicenses = async () => {
 
@@ -33,11 +32,15 @@ export const Licencias = () => {
 
     }
 
+    const handleFormSubmit = () => {
+        setShow(false); // Oculta el formulario al enviarse
+    };
+
     useEffect(() => {
         if (userData) {
             fetchLicenses();
         }
-    }, [userData]);
+    }, [userData, filter]);
 
     const filterLicenses = Array.isArray(licenses) ? licenses.filter((license) => license.status === filter) : [];
 
@@ -49,6 +52,18 @@ export const Licencias = () => {
                 <h1 className="text-2xl font-bold mb-4">Licencias</h1>
                 {/* Menú de opciones */}
                 <div className="mb-4">
+                    <button
+                        className='px-4 py-2 mr-2 rounded bg-green-500 text-white'
+                        onClick={() => setShow(true)}
+                    >
+                        Solicitar
+                    </button>
+                    {show && (
+                        <LicensesForm
+                            onSubmit={handleFormSubmit}
+                            onCancel={() => setShow(false)}
+                        />
+                    )}
                     <button
                         className={`px-4 py-2 mr-2 rounded ${filter === 'Pendiente' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
                         onClick={() => setFilter('Pendiente')}
@@ -78,22 +93,22 @@ export const Licencias = () => {
                         {filterLicenses.map((license) => (
                             <div key={license._id} className="p-4 bg-white rounded shadow">
                                 <h3 className="font-bold">{license.type}</h3>
+                                <p>Solicitado por: {license.nameEmployee}</p>
                                 <p>Inicio: {new Date(license.startDate).toLocaleDateString()}</p>
                                 <p>Fin: {new Date(license.endDate).toLocaleDateString()}</p>
                                 <p>Estado: {license.status}</p>
-                                <p>Estado: {license.user}</p>
                                 {/* Mostrar los botones solo si esta en pendiente */}
-                                {license.status === 'Pendiente' && (
+                                {license.status === 'Pendiente' && userData.role === 'admin' && (
                                     <div className="flex space-x-2 mt-2">
                                         <button
                                             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                                            onClick={() => updateLicenses(license._id, 'aprobada')}
+                                            onClick={() => updateLicenses(license._id, 'Aprobada')}
                                         >
                                             Aprobar
                                         </button>
                                         <button
                                             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                                            onClick={() => updateLicenses(license._id, 'rechazada')}
+                                            onClick={() => updateLicenses(license._id, 'Rechazada')}
                                         >
                                             Rechazar
                                         </button>

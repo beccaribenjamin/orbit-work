@@ -60,6 +60,9 @@ export const NavBar = () => {
             >
                 Log Out
             </button>
+            <div>
+                <p>{userData.name}</p>
+            </div>
         </aside>
         
         </>

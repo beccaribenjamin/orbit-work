@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getUserRequest } from '../api/auth.js'
 import { createEmployeeRequest, deleteUserRequest, editUserRequest } from '../api/users.js'
 import { useAuth } from "./AuthContext";
-import { getLicensesByCompanyRequest, getLicensesByUserRequest, updateLicensesRequest } from "../api/licenses.js";
+import { createLicensesRequest, getLicensesByCompanyRequest, getLicensesByUserRequest, updateLicensesRequest } from "../api/licenses.js";
 
 
 
@@ -80,6 +80,18 @@ export const UserProvider = ({ children }) => {
 
     /************************************** Nuevas Funciones de Licencias **************************************/
 
+    const createLicense = async(licenseData) => {
+        
+        try {
+            const {data} = await createLicensesRequest(licenseData);
+            setLicenses(data)
+        } catch (error) {
+            console.error('Error al crear licencia:', error);
+            throw error; // Puedes propagar el error para manejarlo en el frontend
+        }
+
+    }
+
     const getLicensesByCompany = async (companyId) => {
 
         try {
@@ -108,6 +120,7 @@ export const UserProvider = ({ children }) => {
         }
 
     }
+
 
     const updateLicenses = async (licenseId, status) => {
 
@@ -142,6 +155,7 @@ export const UserProvider = ({ children }) => {
             deleteUser,
             editUser,
             licenses,
+            createLicense,
             getLicensesByCompany,
             getLicensesByUser,
             updateLicenses,
