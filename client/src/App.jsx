@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Workers } from './pages/Workers';
 import { UserProvider } from './context/UserContext';
 import { Licencias } from './pages/Licencias';
+import { Home } from './pages/Home';
 
 
 
@@ -15,7 +16,7 @@ export const App = () => {
       <UserProvider>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<h1>Hola mundo </h1>} />
+            <Route path='/' element={<Home/>} />
             <Route path='/login' element={<LoginPage />} />
             <Route element={<ProtectedRoutes />}>
               <Route path='/dashboard' element={<Dashboard />} />
