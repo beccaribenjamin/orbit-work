@@ -11,14 +11,14 @@ export const NavBar = () => {
     const { userData, loading } = useUser();
 
     if (loading) {
-        return <p>Cargando datos del usuario...</p>; // Muestra un mensaje de carga mientras esperas
+        return <p>Cargando datos del usuario...</p>; 
     }
     if(!userData){
         return <p>No se pudo rtraer</p>
     }
     const role = userData.role
     
-    // Opciones de menú según el rol
+    // Opciones de menu segun el rol
     const menuItems = {
         admin: [
             { name: 'Dashboard', path: '/dashboard' },

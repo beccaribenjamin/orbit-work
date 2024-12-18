@@ -50,12 +50,13 @@ export const EmployeeList = ({ companyId, show, setShow }) => {
                 <ul className="space-y-2 max-h-[700px] overflow-y-auto border border-gray-300 rounded-md shadow-sm">
                     {employees.map((employee) => (
                         <li key={employee._id} className="p-2 bg-gray-100 rounded-md shadow-md">
-                            <p><strong>Nombre:</strong> {employee.name}</p>
-                            <p><strong>Nombre:</strong> {employee._id}</p>
-                            <p><strong>Email:</strong> {employee.email}</p>
-                            <p><strong>Puesto:</strong> {employee.position}</p>
-                            <p><strong>Area / Departamento:</strong> {employee.area}</p>
-                            <p><strong>Role:</strong> {employee.role}</p>
+                            <div className=''>
+                                <p><strong>Nombre:</strong> {employee.name}</p>
+                                <p><strong>Email:</strong> {employee.email}</p>
+                                <p><strong>Puesto:</strong> {employee.position}</p>
+                                <p><strong>Area / Departamento:</strong> {employee.area}</p>
+                                <p><strong>Role:</strong> {employee.role}</p>
+                            </div>
                             <div className='space-x-3 py-3'>
                                 <button
                                     className="p-2 bg-yellow-400 hover:bg-yellow-200 rounded-md text-white"
