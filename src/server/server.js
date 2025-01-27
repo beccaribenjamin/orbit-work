@@ -44,7 +44,7 @@ class Server {
         // Asegúrate de que la colección 'uploads' esté configurada
         this.gfs.collection('uploads');  // Especifica la colección donde se almacenarán los archivos
         
-        console.log('Conectado a GridFS y la colección "uploads" está lista');
+        // console.log('Conectado a GridFS y la colección "uploads" está lista');
     }
 
 

@@ -29,12 +29,12 @@ const upload = (req, res, next) => {
     
     form.parse(req, (err, fields, files) => {
         if (err) {
-            console.log('Error en la subida de archivo:', err);
+            // console.log('Error en la subida de archivo:', err);
             return res.status(500).json({ message: 'Error al procesar el archivo.' });
         }
 
         // Log para verificar qué llega en fields
-        console.log('Campos recibidos:', fields);
+        // console.log('Campos recibidos:', fields);
         
         // Verifica si el archivo está presente
         if (!files.file) {
@@ -45,7 +45,7 @@ const upload = (req, res, next) => {
         const filename = file.originalFilename;
         const filePath = file.filepath;
 
-        console.log("Archivo recibido:", filename);
+        // console.log("Archivo recibido:", filename);
 
         if (!bucket) {
             return res.status(500).json({ message: 'Conexión a GridFS aún no está lista.' });
@@ -55,7 +55,7 @@ const upload = (req, res, next) => {
         const userId = fields.userId && !Array.isArray(fields.userId) ? fields.userId : fields.userId[0];
 
         // Log para verificar el valor de userId
-        console.log("userId recibido:", userId);
+        // console.log("userId recibido:", userId);
 
         if (!userId) {
             return res.status(400).json({ message: 'userId es necesario.' });
@@ -71,7 +71,7 @@ const upload = (req, res, next) => {
         fileReadStream.pipe(uploadStream);
 
         uploadStream.on('finish', () => {
-            console.log("Archivo subido exitosamente a GridFS");
+            // console.log("Archivo subido exitosamente a GridFS");
 
             // Puedes devolver la respuesta con el archivo guardado
             res.json({
@@ -84,7 +84,7 @@ const upload = (req, res, next) => {
         });
 
         uploadStream.on('error', (err) => {
-            console.log("Error al subir el archivo a GridFS:", err);
+            // console.log("Error al subir el archivo a GridFS:", err);
             res.status(500).json({ message: 'Error al guardar el archivo en GridFS.' });
         });
     });
