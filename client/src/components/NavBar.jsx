@@ -22,14 +22,14 @@ export const NavBar = () => {
     const menuItems = {
         admin: [
             { name: 'Dashboard', path: '/dashboard' },
-            { name: 'Documentos', path: '/dashboard' },
+            { name: 'Documentos', path: '/documents' },
             { name: 'Licencias', path: '/licencias' },
             { name: 'Workers', path: '/workers' },
         ],
         employee: [
             { name: 'Dashboard', path: '/dashboard' },
+            { name: 'Documentos', path: '/documents' },
             { name: 'Licencias', path: '/licencias' },
-            { name: 'Docs', path: '/dashboard' },
         ],
     };
     

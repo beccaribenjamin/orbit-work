@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 // Obtener documentos por userId
+// backend: src/controllers/upload.controller.js
+
 const getDocumentsByUserId = async (req, res) => {
     try {
         const { userId } = req.params;
+        console.log(`Recibiendo solicitudes para el userId: ${userId}`); // Añadir log
 
-        // Buscar documentos en la colección de GridFS según el userId en los metadatos
         const documents = await mongoose.connection.db
             .collection('uploads.files')
             .find({ 'metadata.userId': userId })
@@ -29,6 +31,7 @@ const getDocumentsByUserId = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     getDocumentsByUserId,

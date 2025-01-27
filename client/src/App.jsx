@@ -7,7 +7,7 @@ import { Workers } from './pages/Workers';
 import { UserProvider } from './context/UserContext';
 import { Licencias } from './pages/Licencias';
 import { Home } from './pages/Home';
-
+import { Documents } from './pages/Documents';
 
 
 export const App = () => {
@@ -20,6 +20,7 @@ export const App = () => {
             <Route path='/login' element={<LoginPage />} />
             <Route element={<ProtectedRoutes />}>
               <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/documents' element={<Documents />} />
               <Route path='/workers' element={<Workers />} />
               <Route path='/licencias' element={<Licencias />} />
             </Route>

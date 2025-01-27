@@ -3,6 +3,8 @@ import { getUserRequest } from '../api/auth.js'
 import { createEmployeeRequest, deleteUserRequest, editUserRequest } from '../api/users.js'
 import { useAuth } from "./AuthContext";
 import { createLicensesRequest, getLicensesByCompanyRequest, getLicensesByUserRequest, updateLicensesRequest } from "../api/licenses.js";
+import { gentUploadByUserRequest } from "../api/uploads.js";
+
 
 
 
@@ -23,6 +25,7 @@ export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
     const [licenses, setLicenses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [documents, setDocuments] = useState([])
     //Prueba de update triger
     const [updateTrigger, setUpdateTrigger] = useState(false);
 
@@ -80,10 +83,10 @@ export const UserProvider = ({ children }) => {
 
     /************************************** Nuevas Funciones de Licencias **************************************/
 
-    const createLicense = async(licenseData) => {
-        
+    const createLicense = async (licenseData) => {
+
         try {
-            const {data} = await createLicensesRequest(licenseData);
+            const { data } = await createLicensesRequest(licenseData);
             setLicenses(data)
         } catch (error) {
             console.error('Error al crear licencia:', error);
@@ -111,15 +114,10 @@ export const UserProvider = ({ children }) => {
 
     const getLicensesByUser = async (userId) => {
 
-        try {
-            const { data } = await getLicensesByUserRequest(userId);
-            setLicenses(data.length ? data : []); // Asegura que siempre sea un arreglo
-        } catch (error) {
-            console.error('Error al obtener las licencias por usuario', error);
-            setLicenses([]); // Resetea a un arreglo vacío en caso de error
-        }
-
+        const response = await getLicensesByUserRequest(userId);
+        console.log(response)
     }
+
 
 
     const updateLicenses = async (licenseId, status) => {
@@ -134,11 +132,37 @@ export const UserProvider = ({ children }) => {
 
     }
 
+    /************************************** Nuevas Funciones de Documentos **************************************/
+
+    // Función para obtener documentos por usuario
+    // UserContext.jsx
+    const getDocumentsByUser = async (userId) => {
+        try {
+            setLoading(true);
+            const response = await gentUploadByUserRequest(userId); // Llamada a la API
+
+            // Actualizar el estado de documents con la lista de documentos
+            if (response.data && response.data.documents) {
+                setDocuments(response.data.documents); // Guarda los documentos
+            } else {
+                setDocuments([]); // Si no se encuentran documentos, vacía el estado
+            }
+        } catch (error) {
+            console.error("Error obteniendo documentos:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+
+
 
     useEffect(() => {
         if (authUser?.id) {
             setLoading(true)
             getUser(authUser.id); // Obtienes los datos completos del usuario
+            getDocumentsByUser(authUser.id);
 
         } else {
             setLoading(false)
@@ -159,6 +183,7 @@ export const UserProvider = ({ children }) => {
             getLicensesByCompany,
             getLicensesByUser,
             updateLicenses,
+            documents, getDocumentsByUser,
             updateTrigger,
         }}>
             {children}
