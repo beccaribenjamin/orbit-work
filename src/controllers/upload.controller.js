@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const getDocumentsByUserId = async (req, res) => {
     try {
         const { userId } = req.params;
-        console.log(`Recibiendo solicitudes para el userId: ${userId}`); // Añadir log
 
         const documents = await mongoose.connection.db
             .collection('uploads.files')
