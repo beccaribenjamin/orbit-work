@@ -18,6 +18,10 @@ const documentSchema = Schema({
         type: String,
         default: 'uploads',  // Nombre del bucket
     },
+    signedDoc:{
+        type: Boolean,
+        default: false,
+    }
 });
 
 documentSchema.pre('save', function(next) {

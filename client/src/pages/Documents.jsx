@@ -3,7 +3,7 @@ import { useUser } from '../context/UserContext';
 import { useForm } from 'react-hook-form'; // Importamos React Hook Form
 import { NavBar } from '../components/NavBar';
 import { getEmployeesRequest } from '../api/users';
-import { postUpload } from '../api/uploads';
+import { postUpload, handleDownload } from '../api/uploads';
 
 export const Documents = () => {
     const { documents, loading, getDocumentsByUser, userData } = useUser();
@@ -95,13 +95,12 @@ export const Documents = () => {
                                     <h3 className="text-lg font-bold">{doc.filename}</h3>
                                     <p>{new Date(doc.uploadDate).toLocaleDateString()}</p>
                                     <p>Tipo: {doc.contentType}</p>
-                                    <a
-                                        href={`/uploads/${doc._id}`}
-                                        className="text-blue-500 hover:underline mt-2 block"
-                                        download={doc.filename} // Esto asegura que el archivo se descargue con su nombre original
+                                    <button
+                                        onClick={() => handleDownload(doc._id, doc.filename)} // Llamada a la función de descarga
+                                        className="text-blue-500 hover:underline mt-2"
                                     >
                                         Descargar
-                                    </a>
+                                    </button>
                                 </li>
                             ))
                         ) : (
