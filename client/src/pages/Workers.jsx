@@ -15,12 +15,12 @@ export const Workers = () => {
         <div className="flex h-screen">
             <NavBar />
             <div className="flex-1 p-6 bg-gray-100">
-                <h1 className="text-2xl font-bold mb-4">Workers</h1>
+                <h1 className="text-2xl font-bold mb-4">Trabajadores</h1>
                 <button
                     className="h-10 px-4 rounded-md bg-green-500 text-white font-semibold"
                     onClick={() => setShow(!show)}
                 >
-                    {show ? "Ocultar Formulario" : "Crear Usuario"}
+                    {show ? "Ocultar Formulario" : "Nuevo Trabajador"}
                 </button>
                 {/* Pasamos los datos de la empresa para listar empleados */}
                 <EmployeeList companyId={userData.company} show={show} setShow={setShow} />
