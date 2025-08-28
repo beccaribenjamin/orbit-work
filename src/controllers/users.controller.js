@@ -8,8 +8,8 @@ const createUser = async(req, res) => {
     try {
         
         const { name, email, password, role, position, area, company } = req.body;
-
-        const user = new User({ name, email, password, role, position, area, company })
+        const cleanEmail = email.trim().toLowerCase();
+        const user = new User({ name, email: cleanEmail, password, role, position, area, company })
 
         // Verificar si la empresa existe
         const companyExists = await Company.findById(company);
@@ -17,10 +17,14 @@ const createUser = async(req, res) => {
             return res.status(404).json({ msg: 'Empresa no encontrada' });
         }
 
-        //Encriptar contraseña
-        const salt = bcryptjs.genSaltSync();
-        user.password = bcryptjs.hashSync( password, salt )
+        console.log('Contraseña recibida:', password)
 
+
+        //Encriptar contraseña
+        const salt = await bcryptjs.genSaltSync(10);
+        user.password = bcryptjs.hashSync( password, salt )
+        console.log('Contraseña encriptada:', user.password);
+        
         //Guardamos empleado en la base de datos
         await user.save()
 

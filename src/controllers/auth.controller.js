@@ -6,33 +6,42 @@ const { generarJWT } = require('../helpers/generarJWT');
 
 
 const login = async (req, res) => {
-    
-    
+
+
     try {
         const { email, password } = req.body;
-        const userFound  = await User.findOne({email});
+        const cleanEmail = email.trim().toLowerCase();
+        const userFound = await User.findOne({ email: cleanEmail });
 
-        //Validar si user existe
-        if( !userFound ) return res.status(400).json({msg: 'El usuario no existe'});
+        // Validar si user existe
+        if (!userFound) return res.status(400).json({ msg: 'El usuario no existe' });
 
-        //Verificar Contraseña
-        const validatePassword = bcryptjs.compare(password, userFound.password);
-        if(!validatePassword) return res.status(400).json({msg: 'El usuario o contraseña no son correctos'})
+        // console.log para ver la contraseña que se está recibiendo del frontend
+        console.log('Contraseña recibida del frontend:', password);
 
+        // console.log para ver la contraseña encriptada del usuario que encontraste en la DB
+        console.log('Contraseña en la base de datos:', userFound.password);
         
+        // Corrección: Usar await para esperar el resultado de la comparación de contraseñas.
+        const validatePassword = await bcryptjs.compare(password, userFound.password);
+
+        if (!validatePassword) return res.status(400).json({ msg: 'El usuario o contraseña no son correctos' });
+        
+        console.log('Resultado de la comparación:', validatePassword);
+
         // Genera un token
         const token = await generarJWT({
             id: userFound._id,
             role: userFound.role,
             username: userFound.username
-        })
+        });
 
         res.cookie("token", token, {
             secure: true,
             sameSite: "none",
         });
 
-        res.status(200).json({ 
+        res.status(200).json({
             id: userFound._id,
             username: userFound.username,
             email: userFound.email,
@@ -45,7 +54,7 @@ const login = async (req, res) => {
 
 
 const verifyToken = async (req, res) => {
-    const {token} = req.cookies;
+    const { token } = req.cookies;
     if (!token) return res.send(false);
 
     jwt.verify(token, TOKEN_SECRET, async (error, user) => {
@@ -63,12 +72,12 @@ const verifyToken = async (req, res) => {
     });
 };
 
-const logout = async( req, res ) => {
+const logout = async (req, res) => {
 
     res.cookie("token", "", {
         expires: new Date(0),
     });
-    
+
     return res.sendStatus(200);
 
 }

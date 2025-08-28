@@ -7,7 +7,7 @@ export const Workers = () => {
     const { userData, loading } = useUser(); // Obtiene userData del contexto
     const [show, setShow] = useState(false);
 
-    // Verifica si los datos están cargando o no disponibles
+    // Verificar si los datos están cargando o no estan disponibles
     if (loading) return <p>Cargando datos...</p>;
     if (!userData || !userData.company) return <p>Error: No se encontraron datos del usuario o la empresa.</p>;
 
