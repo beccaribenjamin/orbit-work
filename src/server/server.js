@@ -50,7 +50,7 @@ class Server {
 
     middlewares() {
         this.app.use(cors({
-            origin: ['http://localhost:5173', 'orbit-work-122avhmh4-benjamin-beccaris-projects.vercel.app'],
+            origin: ['http://localhost:5173', 'https://orbit-work-benjamin-beccaris-projects.vercel.app/'],
             methods: ['GET', 'POST', 'PUT', 'DELETE'],
             credentials: true
         }));
