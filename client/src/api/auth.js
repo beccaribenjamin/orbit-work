@@ -10,8 +10,8 @@ const instance = axios.create({
 });
 
 //Servio del login
-export const loginRequest = async(user) => instance.post(`/auth/login`, user )
-export const verifyTokenRequest = async() => instance.get('/auth/verify')
+export const loginRequest = async(user) => instance.post(`/login`, user )
+export const verifyTokenRequest = async() => instance.get('/verify')
 
 //Obtener User
 export const getUserRequest = async(userId) => instance.get(`/users/${userId}`, userId)
